@@ -1,0 +1,10 @@
+required node modules:
+
+express@2.5.2
+geoip@0.4.5
+now@0.7.6
+
+download geoip data files:
+http://www.maxmind.com/app/geolitecity
+
+filename is the path to your log file
