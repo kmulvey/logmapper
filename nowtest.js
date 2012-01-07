@@ -1,4 +1,4 @@
-var app = require('express').createServer().listen(80), now = require("now"), fs = require('fs'), $ = require('jquery');
+var app = require('express').createServer().listen(80), now = require("now"), fs = require('fs');
 var geoip = require('geoip');
 var City = geoip.City;
 var city = new City('./GeoLiteCity.dat');
@@ -16,8 +16,7 @@ now.on('connect', function() {
 	fs.stat(filename, function(err, stats) {
 		if (err)
 			throw err;
-		var start = (stats.size > backlog_size) ? (stats.size - backlog_size)
-				: 0;
+		var start = (stats.size > backlog_size) ? (stats.size - backlog_size) : 0;
 		var stream = fs.createReadStream(filename, {
 			start : start,
 			end : stats.size
