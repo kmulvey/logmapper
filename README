@@ -12,7 +12,7 @@ npm install now [-g]
 download geoip data files:
 http://www.maxmind.com/app/geolitecity
 
-filename is the path to your log file
+var filename is the path to your log file
 
 
 LogMapper is open sourced under the Apache License version 2.0.
