@@ -18,9 +18,11 @@ now:
 ### required edits to logmapper.js
 	
 GeoIP data files:
+
 	http://www.maxmind.com/app/geolitecity
 
 Logfile path:	
+
 	var logfile is the path to your log file
 
 ### License
