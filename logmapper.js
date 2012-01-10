@@ -1,12 +1,32 @@
-var app = require('express').createServer().listen(80), now = require("now"), fs = require('fs');
+var express = require('express'), now = require("now"), fs = require('fs');
 var geoip = require('geoip');
 var City = geoip.City;
 var city = new City('./GeoLiteCity.dat');
-var everyone = now.initialize(app);
 var logfile = "./log";
 var backlog_size = 2000;
 var stat = null;
 var watch = null;
+var app = module.exports = express.createServer();
+var everyone = now.initialize(app);
+
+// Express Configuration
+app.configure(function(){
+  app.set('views', __dirname + '/views');
+  app.set('view engine', 'jade');
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use(app.router);
+  app.use(express.static(__dirname + '/public'));
+});
+
+app.configure('development', function(){
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
+});
+
+app.configure('production', function(){
+  app.use(express.errorHandler()); 
+});
+
 
 // send html page back
 app.get('/', function(req, res) {
@@ -67,9 +87,10 @@ function formatter(arr) {
 		if (addr != null) {
 			var city_obj = city.lookupSync(addr);
 			if (city_obj != null)
-				ips.push(city_obj['latitude'].toString().substring(0, 8) + ', '
-						+ city_obj['longitude'].toString().substring(0, 8));
+				ips.push(city_obj['latitude'].toString().substring(0, 8) + ', ' + city_obj['longitude'].toString().substring(0, 8));
 		}
 	}
 	return ips;
 }
+app.listen(80);
+console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
