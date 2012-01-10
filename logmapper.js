@@ -3,7 +3,7 @@ var geoip = require('geoip');
 var City = geoip.City;
 var city = new City('./GeoLiteCity.dat');
 var everyone = now.initialize(app);
-var filename = "./log";
+var logfile = "./log";
 var backlog_size = 2000;
 var stat = null;
 var watch = null;
@@ -23,11 +23,11 @@ function fileWatcher(){
 	// Stat initial blocks of file
 	if(stat == null){
 		console.log('stat created');
-		stat = fs.stat(filename, function(err, stats) {
+		stat = fs.stat(logfile, function(err, stats) {
 			if (err)
 				throw err;
 			var start = (stats.size > backlog_size) ? (stats.size - backlog_size) : 0;
-			var stream = fs.createReadStream(filename, {
+			var stream = fs.createReadStream(logfile, {
 				start : start,
 				end : stats.size
 			});
@@ -39,12 +39,12 @@ function fileWatcher(){
 	// file watcher
 	if(watch == null){
 		console.log('watcher created');
-		watch = fs.watchFile(filename, function(curr, prev) {
+		watch = fs.watchFile(logfile, function(curr, prev) {
 			if (prev.size > curr.size)
 				return {
 					clear : true
 				};
-			var stream = fs.createReadStream(filename, {
+			var stream = fs.createReadStream(logfile, {
 				start : prev.size,
 				end : curr.size
 			});
