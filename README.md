@@ -15,9 +15,9 @@ now:
 
 	npm install now [-g]
 
-### Required edits to logmapper.js
+### Required changes
 	
-GeoIP data files:
+Download GeoIP data file (GeoLiteCity.dat):
 	[Maxmind](http://www.maxmind.com/app/geolitecity)
 
 Logfile path:	
