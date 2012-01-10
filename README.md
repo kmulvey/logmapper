@@ -32,5 +32,5 @@ Logfile path:
 	
 ### TODO
 
-	reqrite frontend in Jade/Less
+	rewrite frontend in Jade/Less
 	
