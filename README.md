@@ -19,7 +19,7 @@ now:
 	
 GeoIP data files:
 
-	http://www.maxmind.com/app/geolitecity
+	[Maxmind](http://www.maxmind.com/app/geolitecity)
 
 Logfile path:	
 
