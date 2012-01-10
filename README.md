@@ -1,19 +1,26 @@
-required node modules:
+Plot your visitors locations in real time
+===
 
-### express:
-npm install [-g] express
+### required node modules:
 
-### geoip:
-npm install geoip [-g]
+express:
+	npm install [-g] express
 
-### now:
-npm install now [-g]
+geoip:
+	npm install geoip [-g]
 
-download geoip data files:
-http://www.maxmind.com/app/geolitecity
+now:
+	npm install now [-g]
 
-"var filename" is the path to your log file
+### required edits to logmapper.js
+	
+GeoIP data files:
+	http://www.maxmind.com/app/geolitecity
 
+Logfile path:	
+	var logfile is the path to your log file
 
-LogMapper is open sourced under the Apache License version 2.0.
-http://www.apache.org/licenses/LICENSE-2.0.html
+### License
+
+	LogMapper is open sourced under the Apache License version 2.0.
+	http://www.apache.org/licenses/LICENSE-2.0.html
