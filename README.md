@@ -1,7 +1,7 @@
 Plot your visitors locations in real time
 ===
 
-### required node modules:
+### Required node modules:
 
 express:
 
@@ -15,7 +15,7 @@ now:
 
 	npm install now [-g]
 
-### required edits to logmapper.js
+### Required edits to logmapper.js
 	
 GeoIP data files:
 
