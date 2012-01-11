@@ -1,11 +1,18 @@
-var express = require('express'), now = require("now"), fs = require('fs');
+var express = require('express'), now = require("now"), fs = require('fs'), util = require('util');
 var geoip = require('geoip');
 var City = geoip.City;
 var city = new City('./GeoLiteCity.dat');
-var logfile = "./log";
+var logfile;
+if (process.argv[2] != undefined){
+	logfile = process.argv[2];
+	if (!path.existsSync(filename)){
+		throw(filename + ' does not exists');
+	}
+}
+else {
+	logfile = "./log";
+}
 var backlog_size = 2000;
-var stat = null;
-var watch = null;
 var app = module.exports = express.createServer();
 var everyone = now.initialize(app);
 
@@ -34,46 +41,20 @@ app.get('/', function(req, res) {
 	console.log('conntected from ' + req.connection.remoteAddress);
 });
 
-// on socket connect
-now.on('connect', function() {
-	fileWatcher();
+// file watcher
+fs.watchFile(logfile, function(curr, prev) {
+	if (prev.size > curr.size)
+		return {
+			clear : true
+		};
+	fs.createReadStream(logfile, {
+		start : prev.size,
+		end : curr.size
+	}).addListener("data", function(lines) {
+		formatter(lines);
+	});
 });
 
-function fileWatcher(){
-	// Stat initial blocks of file
-	if(stat == null){
-		console.log('stat created');
-		stat = fs.stat(logfile, function(err, stats) {
-			if (err)
-				throw err;
-			var start = (stats.size > backlog_size) ? (stats.size - backlog_size) : 0;
-			var stream = fs.createReadStream(logfile, {
-				start : start,
-				end : stats.size
-			});
-			stream.addListener("data", function(lines) {
-				everyone.now.receiveMessage(formatter(lines));
-			});
-		});
-	}
-	// file watcher
-	if(watch == null){
-		console.log('watcher created');
-		watch = fs.watchFile(logfile, function(curr, prev) {
-			if (prev.size > curr.size)
-				return {
-					clear : true
-				};
-			var stream = fs.createReadStream(logfile, {
-				start : prev.size,
-				end : curr.size
-			});
-			stream.addListener("data", function(lines) {
-				everyone.now.receiveMessage(formatter(lines));
-			});
-		});
-	}
-}
 
 // pull out the ips
 function formatter(arr) {
@@ -90,7 +71,10 @@ function formatter(arr) {
 				ips.push(city_obj['latitude'].toString().substring(0, 8) + ', ' + city_obj['longitude'].toString().substring(0, 8));
 		}
 	}
-	return ips;
+	if(everyone.now.receiveMessage != null)
+		everyone.now.receiveMessage(ips);
 }
 app.listen(80);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+
+setInterval(function(){ console.log(util.inspect(process.memoryUsage()));},5000);
