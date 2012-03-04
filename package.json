@@ -11,5 +11,5 @@
   }
   ,"scripts": {
     "test": "make test"
-  },
+  }
 }
