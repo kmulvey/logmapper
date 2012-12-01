@@ -1,3 +1,4 @@
 GeoLiteCity.dat
 dist/*
 test.log
+node_modules/*
