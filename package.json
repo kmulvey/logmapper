@@ -1,9 +1,9 @@
 {
     "name": "logmapper"
-  , "version": "0.0.1"
+  , "version": "1.1.0"
   , "private": true
   , "dependencies": {
-      "express": "2.5.2"
+      "express": ">= 2.5.2"
     , "jade": ">= 0.0.1"
     , "now": ">= 0.7.6"
     , "growing-file": ">= 0.1.3"
