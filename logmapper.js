@@ -13,7 +13,7 @@ else {
 var file = gf.open(logfile);
 var app = express();
 var server = http.createServer(app);
-var everyone = now.initialize(app);
+var everyone = now.initialize(server);
 
 //Express Configuration
 app.configure(function(){
