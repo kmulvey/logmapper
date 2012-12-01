@@ -1,6 +1,4 @@
-var express = require('express'), now = require("now");
-var gf = require('growing-file');
-var geoip = require('geoip');
+var express = require('express'), now = require("now"), http = require('http'), gf = require('growing-file'), geoip = require('geoip');
 var city = new geoip.City('./GeoLiteCity.dat');
 var logfile;
 if (process.argv[2] != undefined){
@@ -10,10 +8,11 @@ if (process.argv[2] != undefined){
 	}
 }
 else {
-	logfile = "./log";
+	logfile = "./test.log";
 }
 var file = gf.open(logfile);
-var app = module.exports = express.createServer();
+var app = express();
+var server = http.createServer(app);
 var everyone = now.initialize(app);
 
 //Express Configuration
@@ -55,5 +54,5 @@ file.on('data', function(arr) {
 		everyone.now.receiveMessage(ips);
 });
 
-app.listen(8000);
-console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+server.listen(8000);
+console.log("Express server listening on port %d in %s mode", server.address().port, app.settings.env);
