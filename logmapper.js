@@ -8,7 +8,7 @@ if (process.argv[2] != undefined){
 	}
 }
 else {
-	logfile = "./test.log";
+	logfile = "/var/log/httpd/access.log";
 }
 var file = gf.open(logfile);
 var app = express();

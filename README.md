@@ -1,7 +1,6 @@
 # Logmapper  [![Build Status](https://secure.travis-ci.org/kmulvey/logmapper.png?branch=master)](https://travis-ci.org/kmulvey/logmapper)
 
 Plot your visitors locations in real time
-===
 
 ### Required node modules:
 
@@ -25,6 +24,9 @@ Download GeoIP data file (GeoLiteCity.dat):
 Logfile path:	
 
 	var logfile is the path to your log file
+
+Enter Google Maps API key
+	edit the <script src> in the html file to have your api key
 
 ### License
 
