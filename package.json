@@ -11,8 +11,10 @@
     "geoip" : ">= 0.4.5"
   },
   "devDependencies": {
-    "grunt": ">= 0.3.17"
-  },
+    "grunt": "",
+  	"grunt-contrib-jshint": "",
+  	"grunt-contrib-qunit": ""
+	},
   "engines": {
     "node": ">=0.8.0"
   },
